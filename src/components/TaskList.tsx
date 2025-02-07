@@ -29,6 +29,18 @@ interface TaskListProps {
 export function TaskList({ tasks, onDeleteTask, showDeleteButton = false }: TaskListProps) {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
+  // Sort tasks to move overdue tasks to the bottom
+  const sortedTasks = [...tasks].sort((a, b) => {
+    const aOverdue = isOverdue(a.dueDate);
+    const bOverdue = isOverdue(b.dueDate);
+    
+    if (aOverdue && !bOverdue) return 1;
+    if (!aOverdue && bOverdue) return -1;
+    
+    // If both are overdue or both are not overdue, sort by due date
+    return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
+  });
+
   const getCategoryIcon = (category: string) => {
     switch (category.toLowerCase()) {
       case 'quiz':
@@ -79,7 +91,7 @@ export function TaskList({ tasks, onDeleteTask, showDeleteButton = false }: Task
     }
   };
 
-  if (tasks.length === 0) {
+  if (sortedTasks.length === 0) {
     return (
       <div className="text-center py-8 sm:py-12 animate-fade-in">
         <img
@@ -97,7 +109,7 @@ export function TaskList({ tasks, onDeleteTask, showDeleteButton = false }: Task
     <div className="w-full max-w-7xl mx-auto bg-gray-50 dark:bg-gray-900 md:bg-transparent">
       {/* Mobile-optimized container */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-3 md:gap-4 lg:gap-6 md:p-4 lg:p-6">
-        {tasks.map((task, index) => {
+        {sortedTasks.map((task, index) => {
           const overdue = isOverdue(task.dueDate);
           return (
             <div
@@ -263,17 +275,10 @@ export function TaskList({ tasks, onDeleteTask, showDeleteButton = false }: Task
       {selectedTask && (
         <TaskDetailsPopup
           task={selectedTask}
+          tasks={sortedTasks}
           onClose={() => setSelectedTask(null)}
-          className={`
-            md:max-w-[85vw] lg:max-w-[65vw] xl:max-w-[55vw] 
-            md:relative md:rounded-lg md:max-h-[90vh] md:overflow-y-auto
-            fixed inset-x-0 bottom-0 w-full h-[90vh]
-            rounded-t-2xl overflow-hidden
-            bg-white dark:bg-gray-800
-            shadow-2xl
-            animate-slide-up md:animate-none
-            z-50
-          `}
+          onDelete={onDeleteTask}
+          showDeleteButton={showDeleteButton}
         />
       )}
     </div>
