@@ -242,12 +242,11 @@ export function UpcomingPage() {
                 w-full aspect-square
                 p-1.5 md:p-4 rounded-xl
                 border-2 transition-all duration-300
-                backdrop-blur-sm
                 ${day.isSelected
                   ? 'bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 border-blue-400/50 shadow-lg shadow-blue-500/20 dark:shadow-blue-600/20 scale-[1.02] -translate-y-1'
                   : day.isToday
-                  ? 'bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-50 border-blue-200/70 dark:from-blue-900/40 dark:via-indigo-900/30 dark:to-purple-900/40 dark:border-blue-700/50'
-                  : 'bg-gradient-to-br from-white/80 via-gray-50/50 to-gray-100/80 dark:from-gray-800/80 dark:via-gray-800/50 dark:to-gray-900/80 border-gray-200/50 dark:border-gray-700/50'
+                  ? 'bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-50 border-blue-200/70 dark:from-blue-900/50 dark:via-indigo-900/40 dark:to-purple-900/50 dark:border-blue-700/50'
+                  : 'bg-gradient-to-br from-white/90 via-gray-50/80 to-gray-100/90 dark:from-gray-800/90 dark:via-gray-800/80 dark:to-gray-900/90 border-gray-200/50 dark:border-gray-700/50'
                 }
                 hover:shadow-lg hover:-translate-y-0.5
                 hover:border-blue-300/70 dark:hover:border-blue-600/70
@@ -355,7 +354,7 @@ export function UpcomingPage() {
                     </h3>
                     {task.isAdminTask && (
                       <div className="flex-shrink-0 p-1 bg-amber-50/50 dark:bg-amber-500/10 rounded-lg">
-                        <Crown className="w-4 h-4 text-amber-500 dark:text-amber-400" />
+                        <Crown className="w-4 h-4 text-amber-500 dark:text-amber-400 hidden md:block" />
                       </div>
                     )}
                   </div>

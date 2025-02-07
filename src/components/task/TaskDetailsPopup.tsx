@@ -68,7 +68,7 @@ export function TaskDetailsPopup({
                 {task.name}
               </h2>
               {task.isAdminTask && (
-                <Crown className="w-5 h-5 text-yellow-500 animate-bounce-slow" />
+                <Crown className="w-5 h-5 text-yellow-500 animate-bounce-slow hidden md:block" />
               )}
             </div>
             <div className="flex flex-wrap gap-2">

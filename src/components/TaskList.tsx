@@ -155,7 +155,7 @@ export function TaskList({ tasks, onDeleteTask, showDeleteButton = false }: Task
                 </span>
 
                 {task.isAdminTask && (
-                  <Crown className="w-5 h-5 md:w-4 md:h-4 text-amber-500 animate-pulse md:ml-2" />
+                  <Crown className="w-5 h-5 md:w-4 md:h-4 text-amber-500 animate-pulse md:ml-2 hidden md:block" />
                 )}
               </div>
 
