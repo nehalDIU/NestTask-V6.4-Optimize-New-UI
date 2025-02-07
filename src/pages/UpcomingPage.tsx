@@ -231,7 +231,7 @@ export function UpcomingPage() {
         </div>
 
         {/* Date Boxes */}
-        <div className="grid grid-cols-7 gap-2 md:gap-4">
+        <div className="grid grid-cols-7 gap-2 md:gap-6 md:px-8">
           {weekDays.map((day) => (
             <button
               key={day.day}
@@ -239,25 +239,28 @@ export function UpcomingPage() {
               className={`
                 relative group
                 flex flex-col items-center justify-center
-                w-full aspect-square
-                p-1.5 md:p-4 rounded-xl
+                w-full aspect-square md:aspect-[5/6]
+                p-1.5 md:p-6 rounded-xl md:rounded-3xl
                 border-2 transition-all duration-300
                 ${day.isSelected
-                  ? 'bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 border-blue-400/50 shadow-lg shadow-blue-500/20 dark:shadow-blue-600/20 scale-[1.02] -translate-y-1'
+                  ? 'bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 border-blue-400/50 shadow-lg shadow-blue-500/20 dark:shadow-blue-600/20 scale-[1.02] -translate-y-1 md:scale-110'
                   : day.isToday
-                  ? 'bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-50 border-blue-200/70 dark:from-blue-900/50 dark:via-indigo-900/40 dark:to-purple-900/50 dark:border-blue-700/50'
-                  : 'bg-gradient-to-br from-white/90 via-gray-50/80 to-gray-100/90 dark:from-gray-800/90 dark:via-gray-800/80 dark:to-gray-900/90 border-gray-200/50 dark:border-gray-700/50'
+                  ? 'bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-50 border-blue-200/70 dark:from-blue-900/50 dark:via-indigo-900/40 dark:to-purple-900/50 dark:border-blue-700/50 md:from-blue-200/90 md:to-blue-100/90 dark:md:from-blue-800/90 dark:md:to-blue-900/90'
+                  : 'bg-gradient-to-br from-white/90 via-gray-50/80 to-gray-100/90 dark:from-gray-800/90 dark:via-gray-800/80 dark:to-gray-900/90 border-gray-200/50 dark:border-gray-700/50 md:from-white/95 md:to-gray-50/95 dark:md:from-gray-800/95 dark:md:to-gray-900/95'
                 }
                 hover:shadow-lg hover:-translate-y-0.5
                 hover:border-blue-300/70 dark:hover:border-blue-600/70
                 group-hover:shadow-blue-500/10 dark:group-hover:shadow-blue-600/10
                 active:scale-95 touch-manipulation
+                md:hover:shadow-2xl md:hover:-translate-y-2 md:hover:scale-105
+                md:shadow-md md:dark:shadow-gray-950/20
                 after:absolute after:inset-0 after:rounded-xl after:shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)] dark:after:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]
+                md:after:rounded-3xl md:after:shadow-[inset_0_2px_4px_rgba(255,255,255,0.5)] dark:md:after:shadow-[inset_0_2px_4px_rgba(255,255,255,0.2)]
               `}
             >
               {/* Weekday */}
               <span className={`
-                text-xs md:text-sm font-semibold tracking-wide
+                text-xs md:text-base lg:text-lg font-semibold tracking-wide
                 transition-colors duration-200
                 ${day.isSelected
                   ? 'text-blue-100'
@@ -265,13 +268,14 @@ export function UpcomingPage() {
                   ? 'text-blue-600/90 dark:text-blue-400'
                   : 'text-gray-500 group-hover:text-blue-500 dark:text-gray-400 dark:group-hover:text-blue-400'
                 }
+                md:mb-2
               `}>
                 {day.weekDay}
               </span>
 
               {/* Day Number */}
               <span className={`
-                text-lg md:text-3xl font-bold mt-0.5 md:mt-1
+                text-lg md:text-5xl lg:text-6xl font-bold mt-0.5 md:mt-2
                 transition-colors duration-200
                 ${day.isSelected
                   ? 'text-white'
@@ -279,6 +283,7 @@ export function UpcomingPage() {
                   ? 'text-blue-600/90 dark:text-blue-400'
                   : 'text-gray-700 group-hover:text-blue-600 dark:text-gray-300 dark:group-hover:text-blue-400'
                 }
+                md:tracking-tight md:-mb-1
               `}>
                 {day.day}
               </span>
@@ -286,20 +291,14 @@ export function UpcomingPage() {
               {/* Today Indicator */}
               {day.isToday && !day.isSelected && (
                 <div className="absolute -bottom-0.5 left-1/2 transform -translate-x-1/2">
-                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 dark:from-blue-400 dark:to-indigo-400 animate-pulse shadow-md shadow-blue-500/50"></div>
+                  <div className="w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 dark:from-blue-400 dark:to-indigo-400 animate-pulse shadow-lg shadow-blue-500/50"></div>
                 </div>
               )}
 
               {/* Selected Indicator */}
               {day.isSelected && (
-                <div className="absolute inset-0 rounded-xl ring-[3px] md:ring-4 ring-blue-400/40 dark:ring-blue-500/40 animate-pulse"></div>
+                <div className="absolute inset-0 rounded-xl md:rounded-3xl ring-4 ring-blue-400/40 dark:ring-blue-500/40 animate-pulse"></div>
               )}
-
-              {/* Glass Effect Overlay */}
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 via-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-
-              {/* Shine Effect */}
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/50 via-transparent to-transparent opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none transform -rotate-12"></div>
             </button>
           ))}
         </div>
